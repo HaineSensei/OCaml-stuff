@@ -37,7 +37,7 @@ let rec nat_of_int x = if x<0 then raise NegativeError else if x=0 then zero els
 let fib_nat = compose fib nat_of_int
 ;;
 
-print_nat (fib_nat 20)
+print_nat (fib_nat 30)
 (*let (+!) x y = match x with
   | Natural xs -> match y with
     | Natural ys -> Natural (xs@ys)
