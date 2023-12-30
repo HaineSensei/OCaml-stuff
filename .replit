@@ -1,4 +1,4 @@
-run = "ocaml wordy-naturals.ml"
+run = "ocaml binary-naturals.ml"
 
 [nix]
 channel = "stable-22_11"
