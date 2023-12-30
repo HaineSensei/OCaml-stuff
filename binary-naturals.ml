@@ -50,10 +50,43 @@ let two = succ one
 let three = succ two
 let five = two +. three
 
+exception UndesiredZero
+
+let rec pos_succ_inv n = match n with
+  | One -> Zero
+  | ShiftO n' -> Nat (ShiftZ n')
+  | ShiftZ n' -> match pos_succ_inv n' with
+    | Zero -> Nat One
+    | Nat m -> Nat (ShiftO m)
+
+let succ_inv n = match n with
+  | Zero -> Zero
+  | Nat n' -> pos_succ_inv n'
+
+let fib = let step a b = (b, a+.b) in
+  let rec inner a b n = match n with
+    | Zero -> a 
+    | Nat n' -> match step a b with
+      | (a', b') -> inner a' b' (succ_inv n)
+    in inner zero one
+
+let six = succ five
+exception NegativeError
+exception UnexpectedModError
+let nat_of_int n = if n<0 then raise NegativeError
+  else if n=0 then Zero
+  else (let rec pos_nat_of_int m = if m < 1 then raise NegativeError
+    else if m=1 then One
+    else match m mod 2 with
+      | 0 -> ShiftZ (pos_nat_of_int (m/2))
+      | 1 -> ShiftO (pos_nat_of_int (m/2))
+      | _ -> raise UnexpectedModError
+    in Nat (pos_nat_of_int n))
 ;;
 print_nat zero;;
 print_nat one;;
 print_nat two;;
 print_nat three;;
 print_nat five;;
-print_nat (five +. three)
+print_nat (five +. three);;
+print_nat (fib (nat_of_int 6000))
