@@ -1,4 +1,4 @@
-(* binary-ℕ.ml *)
+(* binary-naturals.ml *)
 
 type pos_nat = One
              | ShiftZ of pos_nat
