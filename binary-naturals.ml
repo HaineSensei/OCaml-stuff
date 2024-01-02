@@ -50,8 +50,6 @@ let two = succ one
 let three = succ two
 let five = two +. three
 
-exception UndesiredZero
-
 let rec pos_succ_inv n = match n with
   | One -> Zero
   | ShiftO n' -> Nat (ShiftZ n')
